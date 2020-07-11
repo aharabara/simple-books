@@ -3,8 +3,8 @@
 https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
 
 **Required endpoints**
- - [ ] Get authors
- - [ ] Get one author
+ - [x] Get authors
+ - [x] Get one author
  - [ ] Get books by one author
  - [ ] Get one book
  - [ ] Add author
@@ -48,7 +48,7 @@ mongodb
 typeorm
 dotenv
 class-validator
-class-transformer
++class-transformer
 ```
 ### Additional packages:
 ```

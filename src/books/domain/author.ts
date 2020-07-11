@@ -1,4 +1,5 @@
 export class Author {
+ private id:string;
  private firstName:string;
  private lastName:string
  private birthday:Date

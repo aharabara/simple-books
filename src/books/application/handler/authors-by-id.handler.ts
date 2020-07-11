@@ -1,13 +1,12 @@
 import {Injectable} from '@nestjs/common';
 import {Author} from "../../domain/author";
 import {AuthorDto} from "../dto/author.dto";
-import {SearchAuthorsCommand} from "../command/search-authors-command";
 import {classToPlain, plainToClass} from "class-transformer";
+import {AuthorsByIdQuery} from "../command/authors-by-id-query";
 
 @Injectable()
-export class SearchAuthorsHandler {
-    public handle(command: SearchAuthorsCommand): AuthorDto[] {
-
+export class AuthorsByIdHandler {
+    public handle(query: AuthorsByIdQuery): AuthorDto[] {
         const authors = classToPlain([
             new Author(),
             new Author(),

@@ -1,17 +1,35 @@
-import {Controller, Get, Query} from '@nestjs/common';
+import {Controller, Get, Param, Query} from '@nestjs/common';
+import {AuthorDto} from 'src/books/application/dto/author.dto';
 import {SearchAuthorsHandler} from "../../../application/handler/search-authors.handler";
-import {Author} from "../../../domain/author"; /*@fixme replace with DTO */
 import {SearchAuthorsCommand} from "../../../application/command/search-authors-command";
+import {AuthorsByIdHandler} from "../../../application/handler/authors-by-id.handler";
+import {AuthorsByIdQuery} from "../../../application/command/authors-by-id-query";
 
 @Controller('author')
 export class AuthorController {
-    private _searchHandler: SearchAuthorsHandler;
-    constructor(searchHandler: SearchAuthorsHandler) {
-        this._searchHandler = searchHandler;
+    private searchHandler: SearchAuthorsHandler;
+    private authorsByIdHandler: AuthorsByIdHandler;
+
+    constructor(
+        searchHandler: SearchAuthorsHandler,
+        authorsByIdHandler: AuthorsByIdHandler,
+    ) {
+        this.searchHandler = searchHandler;
+        this.authorsByIdHandler = authorsByIdHandler;
     }
 
     @Get()
-    public search(@Query() command: SearchAuthorsCommand):Author[]{
-        return this._searchHandler.handle(command)
+    public searchAuthors(@Query() command: SearchAuthorsCommand):AuthorDto[]{
+        return this
+            .searchHandler
+            .handle(command)
+    }
+    @Get(':id')
+    public getAuthor(@Param('id') id: string):AuthorDto|null{
+        // get first
+        return this
+            .authorsByIdHandler
+            .handle(new AuthorsByIdQuery([id]))
+            .pop()
     }
 }
