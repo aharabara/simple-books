@@ -1,18 +1,18 @@
 ### Description
-- [ ] CRUD manipulations over the authors and their books
+- [x] CRUD manipulations over the authors and their books
 https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
 
 **Required endpoints**
  - [x] Get authors
  - [x] Get one author
- - [ ] Get books by one author
- - [ ] Get one book
- - [ ] Add author
- - [ ] Add book
- - [ ] Update author
- - [ ] Update book
- - [ ] Remove author
- - [ ] Remove book
+ - [x] Get books by one author
+ - [x] Get one book
+ - [x] Add author
+ - [x] Add book
+ - [x] Update author
+ - [x] Update book
+ - [x] Remove author
+ - [x] Remove book
  
 ### Database structure
 

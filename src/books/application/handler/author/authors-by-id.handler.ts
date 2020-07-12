@@ -1,8 +1,8 @@
 import {Injectable} from '@nestjs/common';
-import {Author} from "../../domain/author";
-import {AuthorDto} from "../dto/author.dto";
+import {Author} from "../../../domain/author";
+import {AuthorDto} from "../../dto/author.dto";
 import {classToPlain, plainToClass} from "class-transformer";
-import {AuthorsByIdQuery} from "../command/authors-by-id-query";
+import {AuthorsByIdQuery} from "../../query/authors-by-id.query";
 
 @Injectable()
 export class AuthorsByIdHandler {
