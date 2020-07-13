@@ -1,5 +1,4 @@
-
-export class DeleteBookCommand {
+export class DeleteAuthorCommand {
     constructor(private _id: string) {
     }
 

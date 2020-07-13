@@ -19,7 +19,7 @@ export class BookDto {
     @IsDateString()
     public publishedAt: Date
 
-    public createdAt: Date|null
+    public createdAt: Date | null
 
-    public updatedAt: Date|null
+    public updatedAt: Date | null
 }

@@ -1,4 +1,3 @@
-
 export class SearchAuthorsQuery {
     constructor(
         private perPage: number,

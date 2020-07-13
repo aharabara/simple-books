@@ -1,17 +1,28 @@
 import {AuthorDto} from "../application/dto/author.dto";
+import {Column, Entity, ObjectID, ObjectIdColumn} from "typeorm";
+import {Exclude, Expose, Transform} from "class-transformer";
 
+@Entity()
 export class Author {
-    private id: string;
-    private firstName: string
-    private lastName: string
-    private birthday: Date
-    private createdAt: Date
-    private updatedAt: Date|null
+    @ObjectIdColumn()
+    @Exclude()
+    private _id: ObjectID;
 
-    constructor(props: null|Partial<AuthorDto> = null) {
-        if (props !== null){
+    @Column() private firstName: string
+    @Column() private lastName: string
+    @Column() private birthday: Date
+    @Column() private createdAt: Date
+    @Column() private updatedAt: Date | null
+
+    constructor(props: null | Partial<AuthorDto> = null) {
+        if (props !== null) {
             Object.assign(this, props);
         }
+    }
+
+    @Expose()
+    public id() {
+        return this._id.toHexString();
     }
 
     update(changes: Partial<AuthorDto>): Author {

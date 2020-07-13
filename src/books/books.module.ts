@@ -1,21 +1,24 @@
-import { Module } from '@nestjs/common';
+import {Module} from '@nestjs/common';
 import {AuthorController} from "./port-adapters/http/controller/author.controller";
-import {SearchAuthorsHandler} from "./application/handler/author/search-authors.handler";
-import {AuthorsByIdHandler} from "./application/handler/author/authors-by-id.handler";
 import {BookController} from "./port-adapters/http/controller/book.controller";
-import {BooksByAuthorHandler} from "./application/handler/book/books-by-author.handler";
-import {BooksByIdHandler} from "./application/handler/book/books-by-id.handler";
-import {CreateAuthorHandler} from "./application/handler/author/create-author.handler";
-import {UpdateAuthorHandler} from "./application/handler/author/update-author.handler";
-import {CreateBookHandler} from "./application/handler/author/create-book.handler";
-import {UpdateBookHandler} from "./application/handler/author/update-book.handler";
-import {DeleteAuthorHandler} from "./application/handler/author/delete-author.handler";
-import {DeleteBookHandler} from "./application/handler/author/delete-book.handler";
+import {CreateBookHandler} from "./application/book/handler/create-book.handler";
+import {DeleteAuthorHandler} from "./application/author/handler/delete-author.handler";
+import {AuthorsByIdHandler} from "./application/author/handler/authors-by-id.handler";
+import {UpdateAuthorHandler} from "./application/author/handler/update-author.handler";
+import {SearchAuthorsHandler} from "./application/author/handler/search-authors.handler";
+import {CreateAuthorHandler} from "./application/author/handler/create-author.handler";
+import {BooksByAuthorHandler} from "./application/book/handler/books-by-author.handler";
+import {DeleteBookHandler} from "./application/book/handler/delete-book.handler";
+import {BooksByIdHandler} from "./application/book/handler/books-by-id.handler";
+import {UpdateBookHandler} from "./application/book/handler/update-book.handler";
+import {TypeOrmModule} from "@nestjs/typeorm";
+import {Book} from "./domain/book";
+import {Author} from "./domain/author";
 
 @Module({
-    // imports: [TypeOrmModule.forFeature([Author, Book])],
-    controllers : [AuthorController, BookController],
-    providers : [
+    imports: [TypeOrmModule.forFeature([Author, Book])],
+    controllers: [AuthorController, BookController],
+    providers: [
         SearchAuthorsHandler,
         AuthorsByIdHandler,
         CreateAuthorHandler,
@@ -28,4 +31,5 @@ import {DeleteBookHandler} from "./application/handler/author/delete-book.handle
         DeleteBookHandler,
     ]
 })
-export class BooksModule {}
+export class BooksModule {
+}

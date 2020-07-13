@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {classToPlain, plainToClass} from "class-transformer";
 import {Book} from "../../../domain/book";
 import {BookDto} from "../../dto/book.dto";
-import {UpdateBookCommand} from "../../command/update-book.command";
+import {UpdateBookCommand} from "../command/update-book.command";
 
 @Injectable()
 export class UpdateBookHandler {

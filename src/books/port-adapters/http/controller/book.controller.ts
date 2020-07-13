@@ -1,15 +1,15 @@
-import {Controller, Get, Param, Query, Post, Body, ValidationPipe, Put, Delete, HttpCode} from '@nestjs/common';
-import {BooksByAuthorHandler} from "../../../application/handler/book/books-by-author.handler";
-import {BooksByAuthorQuery} from "../../../application/query/books-by-author.query";
+import {Body, Controller, Delete, Get, HttpCode, Param, Post, Put} from '@nestjs/common';
 import {BookDto} from "../../../application/dto/book.dto";
-import {BooksByIdHandler} from "../../../application/handler/book/books-by-id.handler";
-import {BooksByIdQuery} from "../../../application/query/books-by-id.query";
-import {CreateBookHandler} from "../../../application/handler/author/create-book.handler";
-import {CreateBookCommand} from "../../../application/command/create-book.command";
-import {UpdateBookHandler} from "../../../application/handler/author/update-book.handler";
-import {UpdateBookCommand} from "../../../application/command/update-book.command";
-import {DeleteBookCommand} from "../../../application/command/delete-book.command";
-import {DeleteBookHandler} from "../../../application/handler/author/delete-book.handler";
+import {CreateBookHandler} from "../../../application/book/handler/create-book.handler";
+import {BooksByAuthorQuery} from "../../../application/book/query/books-by-author.query";
+import {BooksByAuthorHandler} from "../../../application/book/handler/books-by-author.handler";
+import {DeleteBookHandler} from "../../../application/book/handler/delete-book.handler";
+import {CreateBookCommand} from "../../../application/book/command/create-book.command";
+import {UpdateBookCommand} from "../../../application/book/command/update-book.command";
+import {BooksByIdHandler} from "../../../application/book/handler/books-by-id.handler";
+import {UpdateBookHandler} from "../../../application/book/handler/update-book.handler";
+import {BooksByIdQuery} from "../../../application/book/query/books-by-id.query";
+import {DeleteBookCommand} from "../../../application/book/command/delete-book.command";
 
 @Controller('book')
 export class BookController {

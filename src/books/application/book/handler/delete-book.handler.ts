@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common';
-import {DeleteBookCommand} from "../../command/delete-book.command";
+import {DeleteBookCommand} from "../command/delete-book.command";
 
 @Injectable()
 export class DeleteBookHandler {

@@ -1,5 +1,4 @@
-
-export class AuthorsByIdQuery {
+export class BooksByIdQuery {
     constructor(private ids: string[]) {
     }
 }

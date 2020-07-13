@@ -6,17 +6,8 @@ export class AppController {
     @Get()
     index(): any {
         return {
-            resources: {
-                "authors" : {
-                    "GET" : [
-                        "/author/",
-                        "/author/:id"
-                    ],
-                },
-                "books" : {
-
-                },
-            }
+            "status": "alive",
+            "resources": []
         };
     }
 }

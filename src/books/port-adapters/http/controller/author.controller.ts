@@ -1,15 +1,27 @@
-import {Body, Controller, Get, Param, Post, Query, Put, Delete, HttpCode} from '@nestjs/common';
+import {
+    Body,
+    ClassSerializerInterceptor,
+    Controller,
+    Delete,
+    Get,
+    HttpCode, HttpException,
+    Param,
+    Post,
+    Put,
+    Query,
+    UseInterceptors
+} from '@nestjs/common';
 import {AuthorDto} from 'src/books/application/dto/author.dto';
-import {SearchAuthorsHandler} from "../../../application/handler/author/search-authors.handler";
-import {AuthorsByIdHandler} from "../../../application/handler/author/authors-by-id.handler";
-import {SearchAuthorsQuery} from "../../../application/query/search-authors.query";
-import {AuthorsByIdQuery} from "../../../application/query/authors-by-id.query";
-import {CreateAuthorCommand} from "../../../application/command/create-author.command";
-import {CreateAuthorHandler} from "../../../application/handler/author/create-author.handler";
-import {UpdateAuthorCommand} from "../../../application/command/update-author.command";
-import {UpdateAuthorHandler} from "../../../application/handler/author/update-author.handler";
-import {DeleteAuthorHandler} from "../../../application/handler/author/delete-author.handler";
-import {DeleteAuthorCommand} from "../../../application/command/delete-author.command";
+import {AuthorsByIdHandler} from "../../../application/author/handler/authors-by-id.handler";
+import {DeleteAuthorHandler} from "../../../application/author/handler/delete-author.handler";
+import {UpdateAuthorHandler} from "../../../application/author/handler/update-author.handler";
+import {SearchAuthorsHandler} from "../../../application/author/handler/search-authors.handler";
+import {CreateAuthorHandler} from "../../../application/author/handler/create-author.handler";
+import {CreateAuthorCommand} from "../../../application/author/command/create-author.command";
+import {UpdateAuthorCommand} from "../../../application/author/command/update-author.command";
+import {SearchAuthorsQuery} from "../../../application/author/query/search-authors.query";
+import {DeleteAuthorCommand} from "../../../application/author/command/delete-author.command";
+import {AuthorsByIdQuery} from "../../../application/author/query/authors-by-id.query";
 
 @Controller('author')
 export class AuthorController {
@@ -24,38 +36,48 @@ export class AuthorController {
     }
 
     @Get()
-    public searchAuthors(@Query() command: SearchAuthorsQuery):AuthorDto[]{
+    public searchAuthors(@Query() command: SearchAuthorsQuery): AuthorDto[] {
         return this
             .searchHandler
             .handle(command)
     }
 
     @Get(':id')
-    public getAuthor(@Param('id') id: string):AuthorDto|null{
+    public async getAuthor(@Param('id') id: string): Promise<AuthorDto | null> {
         // get first
-        return this
+        return await this
             .authorsByIdHandler
             .handle(new AuthorsByIdQuery([id]))
-            .pop()
+            .then(authors => authors.pop())
+            .catch(error => {
+                console.log(error)
+                throw new HttpException("Something bad happened", 400)
+            })
     }
 
     @Post()
     @HttpCode(201)
-    public createAuthor(@Body() author: AuthorDto):AuthorDto{
+    // @UseInterceptors(ClassSerializerInterceptor)
+    public async createAuthor(@Body() author: AuthorDto): Promise<AuthorDto> {
         // get first
-        return this
+        return await this
             .createAuthorHandler
             .handle(new CreateAuthorCommand(author))
+            .then(a => {
+                return a;
+            })
     }
+
     @Put(':id')
-    public updateAuthor(@Param('id') id:string, @Body() author: AuthorDto):AuthorDto{
+    public updateAuthor(@Param('id') id: string, @Body() author: AuthorDto): AuthorDto {
         // get first
         return this
             .updateAuthorHandler
             .handle(new UpdateAuthorCommand(id, author))
     }
+
     @Delete(':id')
-    public deleteAuthor(@Param('id') id:string):void{
+    public deleteAuthor(@Param('id') id: string): void {
         // get first
         return this
             .deleteAuthorHandler

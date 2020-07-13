@@ -1,4 +1,4 @@
-import {AuthorDto} from "../dto/author.dto";
+import {AuthorDto} from "../../dto/author.dto";
 
 export class UpdateAuthorCommand {
     constructor(

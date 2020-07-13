@@ -1,4 +1,4 @@
-import {BookDto} from "../dto/book.dto";
+import {BookDto} from "../../dto/book.dto";
 
 export class CreateBookCommand {
     constructor(

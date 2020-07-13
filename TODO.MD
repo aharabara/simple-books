@@ -13,6 +13,11 @@ https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
  - [x] Update book
  - [x] Remove author
  - [x] Remove book
+ - [x] Enable mongodb
+ - [ ] Connect all handlers to mongo
+ - [ ] Handle exceptions properly, with logging
+ - [ ] Add swagger
+ - [ ] Add jest tests
  
 ### Database structure
 
@@ -44,10 +49,10 @@ https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
 +npm
 +typescript
 ts-node
-mongodb
-typeorm
-dotenv
-class-validator
++mongodb
++typeorm
++dotenv
++class-validator
 +class-transformer
 ```
 ### Additional packages:

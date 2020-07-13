@@ -1,6 +1,7 @@
-let username = env.getPath("MONGO_INITDB_ROOT_USERNAME");
-let password = env.getPath("MONGO_INITDB_ROOT_PASSWORD");
-let database = env.getPath("MONGO_INITDB_DATABASE");
+// @fixme replace with env variables
+let username = "administrator42";
+let password = "24rotartsinimda";
+let database = "simple-books";
 
 db.auth(username, password);
 db = db.getSiblingDB(database);

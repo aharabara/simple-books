@@ -1,8 +1,8 @@
 import {Injectable} from '@nestjs/common';
 import {classToPlain, plainToClass} from "class-transformer";
-import {BooksByIdQuery} from "../../query/books-by-id.query";
 import {BookDto} from "../../dto/book.dto";
 import {Book} from "../../../domain/book";
+import {BooksByIdQuery} from "../query/books-by-id.query";
 
 @Injectable()
 export class BooksByIdHandler {

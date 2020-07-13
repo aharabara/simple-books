@@ -1,8 +1,8 @@
 import {Injectable} from '@nestjs/common';
 import {classToPlain, plainToClass} from "class-transformer";
-import {CreateBookCommand} from "../../command/create-book.command";
 import {Book} from "../../../domain/book";
 import {BookDto} from "../../dto/book.dto";
+import {CreateBookCommand} from "../command/create-book.command";
 
 @Injectable()
 export class CreateBookHandler {
