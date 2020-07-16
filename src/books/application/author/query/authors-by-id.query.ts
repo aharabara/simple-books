@@ -1,8 +1,20 @@
+import {ObjectID} from "mongodb";
+import {ValidationException} from "../../exception/validation.exception";
+
 export class AuthorsByIdQuery {
-    constructor(private _ids: string[]) {
+    private readonly _ids: ObjectID[];
+
+    constructor(ids: string[]) {
+        this._ids = ids.map((id: string): ObjectID => {
+            try {
+                return new ObjectID(id);
+            } catch (e) {
+                throw new ValidationException('Invalid author ID provided.');
+            }
+        })
     }
 
-    get ids(): string[] {
+    get ids(): ObjectID[] {
         return this._ids;
     }
 }

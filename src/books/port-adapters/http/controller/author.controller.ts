@@ -1,27 +1,30 @@
 import {
     Body,
-    ClassSerializerInterceptor,
     Controller,
     Delete,
     Get,
-    HttpCode, HttpException,
+    HttpCode,
+    HttpException,
+    Logger,
     Param,
+    Patch,
     Post,
-    Put,
-    Query,
-    UseInterceptors
+    Query
 } from '@nestjs/common';
 import {AuthorDto} from 'src/books/application/dto/author.dto';
-import {AuthorsByIdHandler} from "../../../application/author/handler/authors-by-id.handler";
-import {DeleteAuthorHandler} from "../../../application/author/handler/delete-author.handler";
-import {UpdateAuthorHandler} from "../../../application/author/handler/update-author.handler";
-import {SearchAuthorsHandler} from "../../../application/author/handler/search-authors.handler";
-import {CreateAuthorHandler} from "../../../application/author/handler/create-author.handler";
-import {CreateAuthorCommand} from "../../../application/author/command/create-author.command";
-import {UpdateAuthorCommand} from "../../../application/author/command/update-author.command";
-import {SearchAuthorsQuery} from "../../../application/author/query/search-authors.query";
-import {DeleteAuthorCommand} from "../../../application/author/command/delete-author.command";
-import {AuthorsByIdQuery} from "../../../application/author/query/authors-by-id.query";
+import {
+    AuthorsByIdHandler,
+    AuthorsByIdQuery,
+    CreateAuthorCommand,
+    CreateAuthorHandler,
+    DeleteAuthorCommand,
+    DeleteAuthorHandler,
+    SearchAuthorsHandler,
+    SearchAuthorsQuery,
+    UpdateAuthorCommand,
+    UpdateAuthorHandler
+} from "../../../application/author/author.service";
+
 
 @Controller('author')
 export class AuthorController {
@@ -31,7 +34,7 @@ export class AuthorController {
         private authorsByIdHandler: AuthorsByIdHandler,
         private createAuthorHandler: CreateAuthorHandler,
         private updateAuthorHandler: UpdateAuthorHandler,
-        private deleteAuthorHandler: DeleteAuthorHandler
+        private deleteAuthorHandler: DeleteAuthorHandler,
     ) {
     }
 
@@ -43,21 +46,21 @@ export class AuthorController {
     }
 
     @Get(':id')
-    public async getAuthor(@Param('id') id: string): Promise<AuthorDto | null> {
+    public async getAuthor(@Param('id',) id: string): Promise<AuthorDto | null> {
         // get first
         return await this
             .authorsByIdHandler
             .handle(new AuthorsByIdQuery([id]))
-            .then(authors => authors.pop())
-            .catch(error => {
-                console.log(error)
-                throw new HttpException("Something bad happened", 400)
+            .then((authors: AuthorDto[]) => {
+                if (authors.length === 0) {
+                    throw new HttpException('Author was not found.', 404);
+                }
+                return authors.pop();
             })
     }
 
     @Post()
     @HttpCode(201)
-    // @UseInterceptors(ClassSerializerInterceptor)
     public async createAuthor(@Body() author: AuthorDto): Promise<AuthorDto> {
         // get first
         return await this
@@ -68,18 +71,20 @@ export class AuthorController {
             })
     }
 
-    @Put(':id')
-    public updateAuthor(@Param('id') id: string, @Body() author: AuthorDto): AuthorDto {
+    @Patch(':id')
+    public async updateAuthor(
+        @Param('id') id: string,
+        @Body() author: AuthorDto
+    ): Promise<AuthorDto> {
         // get first
-        return this
+        return await this
             .updateAuthorHandler
             .handle(new UpdateAuthorCommand(id, author))
     }
 
     @Delete(':id')
     public deleteAuthor(@Param('id') id: string): void {
-        // get first
-        return this
+        this
             .deleteAuthorHandler
             .handle(new DeleteAuthorCommand(id))
     }

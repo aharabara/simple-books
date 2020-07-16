@@ -1,6 +1,6 @@
 import {AuthorDto} from "../application/dto/author.dto";
 import {Column, Entity, ObjectID, ObjectIdColumn} from "typeorm";
-import {Exclude, Expose, Transform} from "class-transformer";
+import {Exclude, Expose} from "class-transformer";
 
 @Entity()
 export class Author {
@@ -18,6 +18,8 @@ export class Author {
         if (props !== null) {
             Object.assign(this, props);
         }
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     @Expose()
@@ -27,6 +29,7 @@ export class Author {
 
     update(changes: Partial<AuthorDto>): Author {
         Object.assign(this, changes);
+        this.updatedAt = new Date();
         return this;
     }
 }

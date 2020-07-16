@@ -15,9 +15,9 @@ https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
  - [x] Remove book
  - [x] Enable mongodb
  - [ ] Connect all handlers to mongo
- - [ ] Handle exceptions properly, with logging
- - [ ] Add swagger
- - [ ] Add jest tests
+     - [x] Books
+     - [ ] Authors
+ - [x] Handle exceptions properly, with logging
  
 ### Database structure
 

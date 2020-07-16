@@ -4,7 +4,7 @@ import {AuthorDto} from "../../dto/author.dto";
 import {classToPlain, plainToClass} from "class-transformer";
 import {CreateAuthorCommand} from "../command/create-author.command";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository, InsertResult} from "typeorm";
+import {InsertResult, Repository} from "typeorm";
 
 @Injectable()
 export class CreateAuthorHandler {
@@ -15,12 +15,8 @@ export class CreateAuthorHandler {
         const newAuthor = new Author(command.author);
         return await this.repository
             .insert(newAuthor)
-            .then((result: InsertResult) => {
+            .then(() => {
                 return plainToClass(AuthorDto, classToPlain(newAuthor))
-            })
-            .catch(error => {
-                console.log(error);
-                throw new Error('Author cannot be saved.')
             })
     }
 }

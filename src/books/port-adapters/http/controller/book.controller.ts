@@ -1,15 +1,17 @@
 import {Body, Controller, Delete, Get, HttpCode, Param, Post, Put} from '@nestjs/common';
 import {BookDto} from "../../../application/dto/book.dto";
-import {CreateBookHandler} from "../../../application/book/handler/create-book.handler";
-import {BooksByAuthorQuery} from "../../../application/book/query/books-by-author.query";
-import {BooksByAuthorHandler} from "../../../application/book/handler/books-by-author.handler";
-import {DeleteBookHandler} from "../../../application/book/handler/delete-book.handler";
-import {CreateBookCommand} from "../../../application/book/command/create-book.command";
-import {UpdateBookCommand} from "../../../application/book/command/update-book.command";
-import {BooksByIdHandler} from "../../../application/book/handler/books-by-id.handler";
-import {UpdateBookHandler} from "../../../application/book/handler/update-book.handler";
-import {BooksByIdQuery} from "../../../application/book/query/books-by-id.query";
-import {DeleteBookCommand} from "../../../application/book/command/delete-book.command";
+import {
+    BooksByAuthorHandler,
+    BooksByAuthorQuery,
+    BooksByIdHandler,
+    BooksByIdQuery,
+    CreateBookCommand,
+    CreateBookHandler,
+    DeleteBookCommand,
+    DeleteBookHandler,
+    UpdateBookCommand,
+    UpdateBookHandler
+} from "../../../application/book/book.service";
 
 @Controller('book')
 export class BookController {
